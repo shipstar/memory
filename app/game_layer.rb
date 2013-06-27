@@ -3,7 +3,8 @@ class GameLayer < Joybox::Core::Layer
 
   def on_enter
     load_sprite_sheet
-    @sprite_batch << Sprite.new(frame_name: 'boy.png', position: [Screen.half_width, Screen.half_height])
+
+    @grid = Grid.new(sprite_batch: @sprite_batch)
   end
 
   def load_sprite_sheet
