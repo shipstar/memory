@@ -1,4 +1,8 @@
 class Grid
+  TILE_SIZE = 64
+  LEFT_GUTTER = 64
+  BOTTOM_GUTTER = 128
+
   def initialize(opts={})
     @sprite_batch = opts[:sprite_batch]
 
@@ -8,7 +12,10 @@ class Grid
   def load_tiles
     @tiles = 4.times.map do |row|
       4.times.map do |column|
-        Tile.new position: [ column * 64 + 64, row * 64 + 128 ]
+        Tile.new position: [
+          column * TILE_SIZE + LEFT_GUTTER,
+          row * TILE_SIZE + BOTTOM_GUTTER
+        ]
       end
     end.flatten
 
