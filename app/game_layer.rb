@@ -17,7 +17,10 @@ class GameLayer < Joybox::Core::Layer
   def handle_touches
     on_touches_ended do |touches, event|
       touch = touches.any_object
-      puts [touch.location.x, touch.location.y].inspect
+
+      if tile = @grid.tile_to_flip(touch.location)
+        puts 'flipping!'
+      end
     end
   end
 end

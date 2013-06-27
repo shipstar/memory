@@ -21,4 +21,8 @@ class Grid
 
     @tiles.each { |t| @sprite_batch << t.sprite }
   end
+
+  def tile_to_flip(touch_location)
+    @tiles.detect { |t| t.touched?(touch_location) }
+  end
 end
