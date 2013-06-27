@@ -19,7 +19,7 @@ class GameLayer < Joybox::Core::Layer
       touch = touches.any_object
 
       if tile = @grid.tile_to_flip(touch.location)
-        puts 'flipping!'
+        tile.flip
       end
     end
   end
