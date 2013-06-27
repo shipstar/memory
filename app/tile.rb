@@ -4,6 +4,8 @@ class Tile
     girl_pink girl_princess heart key ladybug star
   )
 
+  attr_reader :type
+
   def initialize(opts={})
     @type = opts[:type]
     @position = opts[:position]
@@ -17,6 +19,8 @@ class Tile
   end
 
   def touched?(touch_location)
+    return if @frozen
+
     touch_location.x > @sprite.boundingBox.origin.x &&
     touch_location.x < (@sprite.boundingBox.origin.x + @sprite.boundingBox.size.width) &&
     touch_location.y > @sprite.boundingBox.origin.y &&
@@ -24,12 +28,28 @@ class Tile
   end
 
   def flip
-    @sprite.setDisplayFrame Joybox::Core::SpriteFrameCache.frames["#{@type}.png"]
+    if is_showing?("hidden.png")
+      show "#{@type}.png"
+    else
+      show "hidden.png"
+    end
 
     @sprite.run_action Joybox::Actions::Sequence.with(actions: [
       Joybox::Actions::Scale.to(scale: 1.5, duration: 0.2),
       Joybox::Actions::Scale.to(scale: 1.0, duration: 0.2)
     ])
+  end
+
+  def freeze
+    @frozen = true
+  end
+
+  def show(frame_name)
+    @sprite.setDisplayFrame Joybox::Core::SpriteFrameCache.frames[frame_name]
+  end
+
+  def is_showing?(frame_name)
+    @sprite.isFrameDisplayed Joybox::Core::SpriteFrameCache.frames[frame_name]
   end
 
 end
