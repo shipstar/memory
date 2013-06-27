@@ -10,9 +10,11 @@ class Grid
   end
 
   def load_tiles
+    types = 8.times.map { Tile::TYPES.sample } * 2
+
     @tiles = 4.times.map do |row|
       4.times.map do |column|
-        Tile.new position: [
+        Tile.new type: types.shift, position: [
           column * TILE_SIZE + LEFT_GUTTER,
           row * TILE_SIZE + BOTTOM_GUTTER
         ]
