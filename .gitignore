@@ -1,0 +1,6 @@
+.repl_history
+.DS_Store
+build
+.rvmrc
+.ruby-version
+.dat*
