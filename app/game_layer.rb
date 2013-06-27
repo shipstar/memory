@@ -39,6 +39,9 @@ class GameLayer < Joybox::Core::Layer
   def handle_active_tiles
     if @active_tiles.map { |t| t.type }.uniq.size == 1
       @active_tiles.each(&:freeze)
+      if @grid.all_matched?
+        Joybox.director.replace_scene WinLayer.scene
+      end
     else
       @active_tiles.each(&:flip)
     end

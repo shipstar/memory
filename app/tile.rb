@@ -4,7 +4,7 @@ class Tile
     girl_pink girl_princess heart key ladybug star
   )
 
-  attr_reader :type
+  attr_reader :type, :frozen
 
   def initialize(opts={})
     @type = opts[:type]

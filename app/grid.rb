@@ -27,4 +27,8 @@ class Grid
   def tile_to_flip(touch_location)
     @tiles.detect { |t| t.touched?(touch_location) }
   end
+
+  def all_matched?
+    @tiles.all?(&:frozen)
+  end
 end
