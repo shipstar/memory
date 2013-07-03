@@ -63,7 +63,7 @@ class GridLayer < Joybox::Core::Layer
       end
     end.flatten
 
-    @tiles.each { |t| @sprite_batch << t.sprite }
+    @tiles.each { |t| @sprite_batch << t }
   end
 
   def tile_to_flip(touch_location)
