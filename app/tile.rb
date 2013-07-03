@@ -16,10 +16,9 @@ class Tile < Joybox::Core::Sprite
   def touched?(touch_location)
     return if @frozen
 
-    touch_location.x > boundingBox.origin.x &&
-    touch_location.x < (boundingBox.origin.x + boundingBox.size.width) &&
-    touch_location.y > boundingBox.origin.y &&
-    touch_location.y < (boundingBox.origin.y + boundingBox.size.height)
+    rect = CGRectMake(boundingBox.origin.x, boundingBox.origin.y,
+                      boundingBox.size.width, boundingBox.size.height)
+    CGRectContainsPoint(rect, touch_location)
   end
 
   def flip
