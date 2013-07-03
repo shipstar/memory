@@ -1,11 +1,14 @@
-class GameLayer < Joybox::Core::Layer
+class GridLayer < Joybox::Core::Layer
+  TILE_SIZE = 64
+  LEFT_GUTTER = 64
+  BOTTOM_GUTTER = 128
+
   scene
 
   def on_enter
     load_sprite_sheet
     handle_touches
-
-    @grid = Grid.new(sprite_batch: @sprite_batch)
+    load_tiles
   end
 
   def load_sprite_sheet
@@ -21,7 +24,7 @@ class GameLayer < Joybox::Core::Layer
       break if @active_tiles.size == 2
       touch = touches.any_object
 
-      if tile = @grid.tile_to_flip(touch.location)
+      if tile = tile_to_flip(touch.location)
         tile.flip
 
         @active_tiles << tile if @active_tiles.size < 2
@@ -39,12 +42,35 @@ class GameLayer < Joybox::Core::Layer
   def handle_active_tiles
     if @active_tiles.map { |t| t.type }.uniq.size == 1
       @active_tiles.each(&:freeze)
-      if @grid.all_matched?
+      if all_matched?
         Joybox.director.replace_scene WinLayer.scene
       end
     else
       @active_tiles.each(&:flip)
     end
     @active_tiles = []
+  end
+
+  def load_tiles
+    types = 8.times.map { Tile::TYPES.sample } * 2
+
+    @tiles = 4.times.map do |row|
+      4.times.map do |column|
+        Tile.new type: types.shift, position: [
+          column * TILE_SIZE + LEFT_GUTTER,
+          row * TILE_SIZE + BOTTOM_GUTTER
+        ]
+      end
+    end.flatten
+
+    @tiles.each { |t| @sprite_batch << t.sprite }
+  end
+
+  def tile_to_flip(touch_location)
+    @tiles.detect { |t| t.touched?(touch_location) }
+  end
+
+  def all_matched?
+    @tiles.all?(&:frozen)
   end
 end

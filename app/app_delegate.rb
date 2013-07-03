@@ -13,7 +13,7 @@ class AppDelegate
     @window.setRootViewController(@navigation_controller)
     @window.makeKeyAndVisible
 
-    @director.push_scene GameLayer.scene
+    @director.push_scene GridLayer.scene
 
     true
   end
