@@ -16,8 +16,7 @@ class Tile < Joybox::Core::Sprite
   def touched?(touch_location)
     return if @frozen
 
-    rect = CGRectMake(boundingBox.origin.x, boundingBox.origin.y,
-                      boundingBox.size.width, boundingBox.size.height)
+    rect = CGRect.new(boundingBox.origin, boundingBox.size)
     CGRectContainsPoint(rect, touch_location)
   end
 
