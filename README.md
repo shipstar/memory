@@ -40,7 +40,7 @@ Nothing too fancy here. It creates an app_delegate, which is the entry point to 
 
 Make sure you're in good shape by running `rake`. If all is well, you should see the following:
 
-![](blank.png)
+![](https://dl.dropbox.com/s/ywfh019ukqjzni8/blank.png)
 
 Not too exciting, but it's a start!
 
