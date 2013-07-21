@@ -31,8 +31,8 @@ class GridLayer < Joybox::Core::Layer
 
         if @active_tiles.size == 2
           self.runAction Sequence.with(actions: [
-            CCDelayTime.actionWithDuration(1),
-            CCCallFunc.actionWithTarget(self, selector: :handle_active_tiles)
+            Delay.time(by: 1),
+            Callback.with(&handle_active_tiles)
           ])
         end
       end
@@ -40,15 +40,17 @@ class GridLayer < Joybox::Core::Layer
   end
 
   def handle_active_tiles
-    if @active_tiles.map { |t| t.type }.uniq.size == 1
-      @active_tiles.each(&:freeze)
-      if all_matched?
-        Joybox.director.replace_scene WinLayer.scene
+    Proc.new do
+      if @active_tiles.map { |t| t.type }.uniq.size == 1
+        @active_tiles.each(&:freeze)
+        if all_matched?
+          Joybox.director.replace_scene WinLayer.scene
+        end
+      else
+        @active_tiles.each(&:flip)
       end
-    else
-      @active_tiles.each(&:flip)
+      @active_tiles = []
     end
-    @active_tiles = []
   end
 
   def load_tiles
