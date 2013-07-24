@@ -10,6 +10,8 @@ I'm going to assume that readers are familiar with Ruby and basic game developme
 
 If you have any questions or run into any issues with Joybox, feel free to post to the [Google Group](https://groups.google.com/forum/#!forum/joybox-wrapper). Juan has been very responsive to questions so far, and we'd love to see more people using the framework!
 
+The final source code for this tutorial is available [here](https://github.com/shipstar/memory).
+
 ## Prerequisites
 
 In order to complete this tutorial, you'll need the following installed on your machine:
